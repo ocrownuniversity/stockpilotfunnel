@@ -3,555 +3,349 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StockPilot – Inventory Management System</title>
+<title>StockPilot – Smart Inventory Management for Nigerian Businesses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0a1628;
-    --blue: #1a56db;
-    --blue-light: #3b82f6;
-    --cyan: #06b6d4;
-    --green: #10b981;
-    --green-light: #34d399;
-    --white: #ffffff;
-    --gray-50: #f8fafc;
-    --gray-100: #f1f5f9;
-    --gray-300: #cbd5e1;
-    --gray-500: #64748b;
-    --gray-700: #334155;
-    --gold: #f59e0b;
-  }
+:root {
+  --navy:#0a1628; --navy-2:#0f2347; --blue:#1a56db; --blue-light:#3b82f6;
+  --cyan:#06b6d4; --green:#10b981; --green-light:#34d399;
+  --white:#ffffff; --gray-50:#f8fafc; --gray-100:#f1f5f9;
+  --gray-200:#e2e8f0; --gray-300:#cbd5e1; --gray-400:#94a3b8;
+  --gray-500:#64748b; --gray-700:#334155;
+  --gold:#f59e0b; --gold-light:#fcd34d; --red:#ef4444;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Syne',sans-serif}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* URGENCY BAR */
+.urgency-bar{background:linear-gradient(90deg,#071020 0%,#1a3a8f 50%,#071020 100%);padding:10px 5%;text-align:center;font-size:.8rem;color:rgba(255,255,255,.88);font-weight:500;position:relative;z-index:101}
+.urgency-bar strong{color:var(--gold-light)}
+.urgency-bar .sep{opacity:.3;margin:0 10px}
+.u-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.38);padding:2px 10px;border-radius:100px;color:var(--gold-light);font-weight:700;font-size:.74rem;margin-left:10px}
+.u-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 
-  html { scroll-behavior: smooth; }
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(10,22,40,.97);backdrop-filter:blur(16px);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:66px;border-bottom:1px solid rgba(255,255,255,.07)}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:var(--white);display:flex;align-items:center;gap:9px;text-decoration:none}
+.nav-logo span{background:linear-gradient(135deg,var(--blue-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:linear-gradient(135deg,var(--green),var(--cyan));color:white;border:none;padding:10px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 16px rgba(16,185,129,.3)}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--navy);
-    overflow-x: hidden;
-  }
+/* HERO */
+.hero{min-height:100vh;background:var(--navy);background-image:radial-gradient(ellipse 80% 55% at 50% -5%,rgba(26,86,219,.38) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 80% 60%,rgba(6,182,212,.13) 0%,transparent 55%);display:flex;align-items:center;padding:90px 5% 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);padding:6px 14px;border-radius:100px;font-size:.78rem;color:var(--green-light);font-weight:600;margin-bottom:20px}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(2.2rem,4.2vw,3.3rem);font-weight:800;line-height:1.1;color:var(--white);margin-bottom:18px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--blue-light),var(--cyan),var(--green-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,.62);margin-bottom:20px}
+.hero-businesses{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:30px}
+.biz-tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);color:rgba(255,255,255,.68);padding:5px 12px;border-radius:6px;font-size:.77rem;font-weight:500;transition:background .2s,border-color .2s,color .2s}
+.biz-tag:hover{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3);color:var(--green-light)}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--cyan));color:white;padding:15px 26px;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 8px 28px rgba(16,185,129,.4);transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(16,185,129,.52)}
+.btn-secondary{background:transparent;color:var(--white);padding:15px 24px;border:2px solid rgba(255,255,255,.2);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;text-decoration:none;transition:border-color .2s,background .2s;display:inline-block}
+.btn-secondary:hover{border-color:var(--cyan);background:rgba(6,182,212,.07)}
+.hero-trust{display:flex;flex-wrap:wrap;gap:16px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07)}
+.htrust-item{display:flex;align-items:center;gap:7px;font-size:.79rem;color:rgba(255,255,255,.42)}
+.htrust-item span{color:var(--green-light);font-weight:700}
 
-  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+/* Dashboard mock */
+.hero-visual{position:relative;animation:floatIn .85s ease-out both}
+@keyframes floatIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.dashboard-mock{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.11);border-radius:20px;padding:22px;backdrop-filter:blur(10px);box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.mock-header{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.mock-dot{width:10px;height:10px;border-radius:50%}
+.mock-title{color:rgba(255,255,255,.35);font-size:.72rem;margin-left:auto;font-weight:500}
+.mock-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.mock-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:14px}
+.mock-stat-label{font-size:.68rem;color:rgba(255,255,255,.38);margin-bottom:3px}
+.mock-stat-val{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;color:white}
+.mock-stat-change{font-size:.67rem;color:var(--green-light);margin-top:2px}
+.mock-bar-section{margin-bottom:12px}
+.mock-bar-label{display:flex;justify-content:space-between;font-size:.68rem;color:rgba(255,255,255,.38);margin-bottom:5px}
+.mock-bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.mock-bar-fill{height:100%;border-radius:3px}
+.mock-alert{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);border-radius:9px;padding:11px 13px;display:flex;align-items:center;gap:9px;font-size:.73rem;color:var(--gold)}
+.float-badge{position:absolute;bottom:-18px;left:-22px;background:white;border-radius:14px;padding:11px 15px;box-shadow:0 8px 32px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px;animation:bob 4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-badge-icon{font-size:1.2rem}
+.float-badge-text{font-size:.73rem;font-weight:700;color:var(--navy);line-height:1.35}
+.float-badge-text em{color:var(--green);font-style:normal}
+.float-badge2{position:absolute;top:-18px;right:-14px;background:var(--navy);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;box-shadow:0 8px 28px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;animation:bob 5s ease-in-out 1s infinite;font-size:.72rem;font-weight:600;color:rgba(255,255,255,.65)}
+.float-badge2 strong{color:var(--cyan)}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,22,40,0.95);
-    backdrop-filter: blur(12px);
-    padding: 0 5%;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem; font-weight: 800;
-    color: var(--white);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .nav-logo span {
-    background: linear-gradient(135deg, var(--blue-light), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .logo-icon {
-    width: 32px; height: 32px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .nav-cta {
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: white; border: none; padding: 10px 22px;
-    border-radius: 8px; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; font-size: 0.9rem; cursor: pointer;
-    text-decoration: none; transition: opacity 0.2s;
-  }
-  .nav-cta:hover { opacity: 0.85; }
+/* TRUST RIBBON */
+.trust-ribbon{background:var(--navy);overflow:hidden;border-top:1px solid rgba(255,255,255,.05)}
+.trust-ribbon-inner{display:flex;animation:marquee 30s linear infinite;width:max-content;white-space:nowrap}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.trb-item{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.45);border-right:1px solid rgba(255,255,255,.06)}
+.trb-item .dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.trb-item strong{color:rgba(255,255,255,.75)}
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    background: var(--navy);
-    background-image:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(26,86,219,0.35) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 80% 60%, rgba(6,182,212,0.15) 0%, transparent 50%);
-    display: flex; align-items: center;
-    padding: 100px 5% 80px;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    align-items: center; position: relative; z-index: 1;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(26,86,219,0.2); border: 1px solid rgba(59,130,246,0.4);
-    padding: 6px 14px; border-radius: 100px;
-    font-size: 0.8rem; color: var(--cyan); font-weight: 500; margin-bottom: 24px;
-  }
-  .hero-badge::before {
-    content: ''; width: 7px; height: 7px; background: var(--green);
-    border-radius: 50%; animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.3); }
-  }
-  .hero h1 {
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-    font-weight: 800; line-height: 1.1;
-    color: var(--white); margin-bottom: 20px;
-  }
-  .hero h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--blue-light), var(--cyan), var(--green-light));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .hero-sub {
-    font-size: 1.05rem; line-height: 1.7;
-    color: rgba(255,255,255,0.65); margin-bottom: 24px;
-  }
-  .hero-businesses {
-    display: flex; flex-wrap: wrap; gap: 8px;
-    margin-bottom: 36px;
-  }
-  .biz-tag {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.7);
-    padding: 5px 13px; border-radius: 6px;
-    font-size: 0.78rem; font-weight: 500;
-  }
-  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: white; padding: 15px 28px;
-    border: none; border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.97rem; font-weight: 600; cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 8px 32px rgba(26,86,219,0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: inline-block;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(26,86,219,0.5); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--white); padding: 15px 28px;
-    border: 2px solid rgba(255,255,255,0.25);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.97rem; font-weight: 600; cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-    display: inline-block;
-  }
-  .btn-secondary:hover { border-color: var(--cyan); background: rgba(6,182,212,0.08); }
+/* FLOW SECTION */
+.flow-section{background:var(--gray-50);padding:80px 5%;border-bottom:1px solid var(--gray-200)}
+.flow-inner{max-width:1100px;margin:0 auto}
+.flow-steps{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-top:44px;flex-wrap:wrap}
+.flow-step{flex:1;min-width:130px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.flow-step:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:16px;color:var(--gray-300);font-size:1rem;font-weight:700}
+.step-num{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:white;font-family:'Syne',sans-serif;font-weight:800;font-size:.88rem;display:flex;align-items:center;justify-content:center;margin-bottom:11px;box-shadow:0 4px 14px rgba(26,86,219,.35)}
+.step-num.green{background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 4px 14px rgba(16,185,129,.4)}
+.step-label{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px}
+.step-sub{font-size:.71rem;color:var(--gray-500);line-height:1.4}
+.step-time{display:inline-block;margin-top:7px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--green);font-size:.67rem;font-weight:700;padding:2px 8px;border-radius:100px}
 
-  /* HERO VISUAL */
-  .hero-visual {
-    position: relative;
-    animation: floatIn 0.8s ease-out both;
-  }
-  @keyframes floatIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .dashboard-mock {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 24px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-  }
-  .mock-header {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
-  }
-  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .mock-title { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-left: auto; }
-  .mock-stats {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
-  }
-  .mock-stat {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: 16px;
-  }
-  .mock-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
-  .mock-stat-val { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: white; }
-  .mock-stat-change { font-size: 0.7rem; color: var(--green-light); margin-top: 2px; }
-  .mock-bar-section { margin-bottom: 16px; }
-  .mock-bar-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
-  .mock-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
-  .mock-bar-fill { height: 100%; border-radius: 3px; }
-  .mock-alert {
-    background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
-    border-radius: 10px; padding: 12px 14px;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.75rem; color: var(--gold);
-  }
-  .alert-icon { font-size: 1rem; }
-  .trust-bar {
-    display: flex; align-items: center; gap: 20px; margin-top: 32px;
-    padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.08);
-  }
-  .trust-item { text-align: center; }
-  .trust-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--white); }
-  .trust-lbl { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
+/* SECTION COMMON */
+section{padding:100px 5%}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{display:inline-block;background:rgba(26,86,219,.07);color:var(--blue);border:1px solid rgba(26,86,219,.18);padding:5px 13px;border-radius:100px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.55rem);font-weight:800;line-height:1.15;color:var(--navy);margin-bottom:14px}
+.section-sub{font-size:1.03rem;color:var(--gray-500);line-height:1.72;max-width:580px}
 
-  /* SECTION COMMON */
-  section { padding: 100px 5%; }
-  .section-inner { max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    display: inline-block;
-    background: rgba(26,86,219,0.08);
-    color: var(--blue); border: 1px solid rgba(26,86,219,0.2);
-    padding: 5px 14px; border-radius: 100px;
-    font-size: 0.78rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800; line-height: 1.15;
-    color: var(--navy); margin-bottom: 16px;
-  }
-  .section-sub {
-    font-size: 1.05rem; color: var(--gray-500);
-    line-height: 1.7; max-width: 580px;
-  }
+/* PROBLEM */
+.problem-section{background:var(--white)}
+.problems-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;margin-top:52px}
+.problem-list{display:flex;flex-direction:column;gap:13px}
+.problem-item{display:flex;align-items:flex-start;gap:14px;padding:17px 19px;background:var(--gray-50);border-radius:12px;border:1.5px solid var(--gray-100);transition:box-shadow .2s,transform .2s,border-color .2s}
+.problem-item:hover{box-shadow:0 4px 20px rgba(239,68,68,.08);transform:translateX(4px);border-color:rgba(239,68,68,.2)}
+.prob-icon{width:36px;height:36px;min-width:36px;background:rgba(239,68,68,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.prob-text{font-size:.91rem;color:var(--gray-700);font-weight:500;line-height:1.45}
+.solution-card{background:linear-gradient(145deg,var(--navy) 0%,var(--navy-2) 100%);border-radius:22px;padding:40px 36px;color:white;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.solution-card::before{content:'';position:absolute;top:-70px;right:-70px;width:240px;height:240px;background:radial-gradient(circle,rgba(16,185,129,.22),transparent 65%);border-radius:50%}
+.solution-card h3{font-size:1.5rem;font-weight:800;margin-bottom:12px;line-height:1.2;position:relative;z-index:1}
+.solution-card h3 span{color:var(--cyan)}
+.solution-card>p{color:rgba(255,255,255,.62);line-height:1.7;margin-bottom:22px;position:relative;z-index:1;font-size:.9rem}
+.solution-points{display:flex;flex-direction:column;gap:11px;margin-bottom:26px;position:relative;z-index:1}
+.sol-point{display:flex;align-items:center;gap:10px;font-size:.87rem;color:rgba(255,255,255,.82)}
+.sol-check{width:22px;height:22px;min-width:22px;background:rgba(16,185,129,.18);border:1px solid rgba(16,185,129,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--green-light)}
 
-  /* PROBLEM */
-  .problem-section { background: var(--gray-50); }
-  .problems-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 50px; align-items: center; margin-top: 60px;
-  }
-  .problem-list { display: flex; flex-direction: column; gap: 16px; }
-  .problem-item {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 18px 20px;
-    background: white; border-radius: 12px;
-    border: 1px solid var(--gray-100);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    transition: box-shadow 0.2s;
-  }
-  .problem-item:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-  .prob-icon {
-    width: 36px; height: 36px; min-width: 36px;
-    background: rgba(239,68,68,0.08); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
-  }
-  .prob-text { font-size: 0.95rem; color: var(--gray-700); font-weight: 500; line-height: 1.4; }
-  .solution-card {
-    background: linear-gradient(135deg, var(--navy) 0%, #0f2347 100%);
-    border-radius: 20px; padding: 44px 40px;
-    color: white; position: relative; overflow: hidden;
-  }
-  .solution-card::before {
-    content: '';
-    position: absolute; top: -60px; right: -60px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(26,86,219,0.3), transparent 70%);
-    border-radius: 50%;
-  }
-  .solution-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
-  .solution-card h3 span { color: var(--cyan); }
-  .solution-card p { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 28px; }
-  .solution-points { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-  .sol-point { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: rgba(255,255,255,0.85); }
-  .sol-check {
-    width: 22px; height: 22px; min-width: 22px;
-    background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.4);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 0.7rem; color: var(--green-light);
-  }
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+.feature-card{background:var(--white);border:1.5px solid var(--gray-100);border-radius:16px;padding:26px 22px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.feature-card:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(26,86,219,.1);border-color:rgba(26,86,219,.2)}
+.feat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:13px}
+.feat-title{font-size:.93rem;font-weight:700;color:var(--navy);margin-bottom:7px}
+.feat-desc{font-size:.83rem;color:var(--gray-500);line-height:1.58}
 
-  /* FEATURES */
-  .features-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 20px; margin-top: 60px;
-  }
-  .feature-card {
-    background: var(--white); border: 1px solid var(--gray-100);
-    border-radius: 16px; padding: 28px 24px;
-    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-  }
-  .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(26,86,219,0.1);
-    border-color: rgba(26,86,219,0.2);
-  }
-  .feat-icon {
-    width: 48px; height: 48px;
-    border-radius: 12px; display: flex; align-items: center;
-    justify-content: center; font-size: 1.3rem; margin-bottom: 16px;
-  }
-  .feat-title { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; font-family: 'Syne', sans-serif; }
-  .feat-desc { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+/* WHO */
+.who-section{background:var(--navy)}
+.who-section .section-label{background:rgba(6,182,212,.12);border-color:rgba(6,182,212,.3);color:var(--cyan)}
+.who-section .section-title{color:white}
+.who-section .section-sub{color:rgba(255,255,255,.48)}
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:50px}
+.who-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px 20px;transition:background .2s,border-color .2s,transform .2s;display:flex;align-items:center;gap:14px}
+.who-card:hover{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.28);transform:translateY(-3px)}
+.who-icon{font-size:1.85rem}
+.who-name{font-family:'Syne',sans-serif;font-weight:700;color:white;font-size:.95rem}
+.who-desc{font-size:.77rem;color:rgba(255,255,255,.4);margin-top:2px}
 
-  /* WHO */
-  .who-section { background: var(--navy); }
-  .who-section .section-label { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.3); color: var(--cyan); }
-  .who-section .section-title { color: white; }
-  .who-section .section-sub { color: rgba(255,255,255,0.55); }
-  .who-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px;
-  }
-  .who-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px; padding: 28px 24px;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    display: flex; align-items: center; gap: 16px;
-  }
-  .who-card:hover {
-    background: rgba(26,86,219,0.1);
-    border-color: rgba(59,130,246,0.3);
-    transform: translateY(-3px);
-  }
-  .who-icon { font-size: 2rem; }
-  .who-name { font-family: 'Syne', sans-serif; font-weight: 700; color: white; font-size: 1rem; }
-  .who-desc { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
+/* TRUST SECTION */
+.trust-section{background:var(--gray-50);padding:80px 5%}
+.trust-section-inner{max-width:1100px;margin:0 auto}
+.trust-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.trust-card{background:white;border-radius:18px;padding:30px 26px;border:1.5px solid var(--gray-100);box-shadow:0 2px 16px rgba(0,0,0,.04);transition:transform .25s,box-shadow .25s;text-align:center}
+.trust-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.08)}
+.trust-card-icon{font-size:2.2rem;margin-bottom:13px}
+.trust-card-title{font-family:'Syne',sans-serif;font-size:1.02rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.trust-card-text{font-size:.84rem;color:var(--gray-500);line-height:1.6}
+.trust-highlight{margin-top:36px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);border-radius:18px;padding:30px 38px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px}
+.th-left h4{font-size:1.2rem;font-weight:800;color:white;margin-bottom:6px}
+.th-left p{font-size:.86rem;color:rgba(255,255,255,.52);max-width:480px;line-height:1.6}
+.th-stats{display:flex;gap:34px;flex-wrap:wrap}
+.th-stat-val{font-family:'Syne',sans-serif;font-size:1.75rem;font-weight:800;color:white}
+.th-stat-lbl{font-size:.7rem;color:rgba(255,255,255,.38);margin-top:2px}
 
-  /* BENEFITS */
-  .benefits-section { background: var(--gray-50); }
-  .benefits-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
-    align-items: center; margin-top: 60px;
-  }
-  .benefit-list { display: flex; flex-direction: column; gap: 20px; }
-  .benefit-item {
-    display: flex; gap: 16px; align-items: flex-start;
-    padding: 20px; background: white; border-radius: 14px;
-    border: 1px solid var(--gray-100);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  }
-  .ben-icon {
-    width: 44px; height: 44px; min-width: 44px;
-    border-radius: 10px; display: flex; align-items: center;
-    justify-content: center; font-size: 1.2rem;
-  }
-  .ben-title { font-weight: 700; color: var(--navy); font-size: 0.97rem; margin-bottom: 4px; font-family: 'Syne', sans-serif; }
-  .ben-desc { font-size: 0.85rem; color: var(--gray-500); line-height: 1.5; }
-  .metrics-card {
-    background: linear-gradient(160deg, var(--blue) 0%, var(--cyan) 100%);
-    border-radius: 20px; padding: 44px 40px; color: white;
-  }
-  .metrics-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
-  .metrics-card p { opacity: 0.8; font-size: 0.9rem; margin-bottom: 36px; line-height: 1.6; }
-  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .metric-box {
-    background: rgba(255,255,255,0.15);
-    border-radius: 12px; padding: 20px;
-    text-align: center;
-  }
-  .metric-val { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
-  .metric-lbl { font-size: 0.75rem; opacity: 0.75; margin-top: 4px; }
+/* BENEFITS */
+.benefits-section{background:var(--white)}
+.benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:52px}
+.benefit-list{display:flex;flex-direction:column;gap:16px}
+.benefit-item{display:flex;gap:14px;align-items:flex-start;padding:17px;background:var(--gray-50);border-radius:14px;border:1.5px solid var(--gray-100);transition:border-color .2s,box-shadow .2s}
+.benefit-item:hover{border-color:rgba(16,185,129,.3);box-shadow:0 4px 18px rgba(16,185,129,.06)}
+.ben-icon{width:42px;height:42px;min-width:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.15rem}
+.ben-title{font-weight:700;color:var(--navy);font-size:.93rem;margin-bottom:4px}
+.ben-desc{font-size:.82rem;color:var(--gray-500);line-height:1.52}
+.metrics-card{background:linear-gradient(155deg,var(--blue) 0%,var(--cyan) 100%);border-radius:22px;padding:40px 36px;color:white;position:relative;overflow:hidden}
+.metrics-card::before{content:'';position:absolute;top:-80px;right:-80px;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.06)}
+.metrics-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.metrics-card p{opacity:.76;font-size:.86rem;margin-bottom:30px;line-height:1.6}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.metric-box{background:rgba(255,255,255,.14);border-radius:12px;padding:17px;text-align:center}
+.metric-val{font-family:'Syne',sans-serif;font-size:1.85rem;font-weight:800}
+.metric-lbl{font-size:.72rem;opacity:.7;margin-top:4px}
 
-  /* FREE TRIAL SECTION */
-  .trial-section {
-    background: linear-gradient(135deg, var(--navy) 0%, #0d1f3c 50%, #0a2040 100%);
-    text-align: center; padding: 120px 5%;
-    position: relative; overflow: hidden;
-  }
-  .trial-section::before {
-    content: '';
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(26,86,219,0.2), transparent 65%);
-    border-radius: 50%;
-  }
-  .trial-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
-  .trial-section .section-label { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: var(--green-light); }
-  .trial-section .section-title { color: white; margin: 0 auto 20px; }
-  .trial-section .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 40px; }
-  .trial-features {
-    display: flex; justify-content: center; gap: 28px;
-    flex-wrap: wrap; margin-bottom: 40px;
-  }
-  .trial-feat {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.88rem; color: rgba(255,255,255,0.7);
-  }
-  .trial-feat-dot { color: var(--green-light); font-size: 1rem; }
-  .btn-trial {
-    background: linear-gradient(135deg, var(--green), var(--cyan));
-    color: white; padding: 18px 40px;
-    border: none; border-radius: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.05rem; font-weight: 700; cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 10px 40px rgba(16,185,129,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: inline-block;
-  }
-  .btn-trial:hover { transform: translateY(-3px); box-shadow: 0 14px 50px rgba(16,185,129,0.45); }
-  .no-cc { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 14px; }
+/* TRIAL */
+.trial-section{background:linear-gradient(140deg,var(--navy) 0%,#0d1f3c 50%,#071428 100%);text-align:center;padding:110px 5%;position:relative;overflow:hidden}
+.trial-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(16,185,129,.15),transparent 65%);border-radius:50%}
+.trial-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.trial-section .section-label{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3);color:var(--green-light)}
+.trial-section .section-title{color:white;margin:0 auto 14px}
+.trial-section .section-sub{color:rgba(255,255,255,.55);margin:0 auto 32px}
+.trial-features{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-bottom:32px}
+.trial-feat{display:flex;align-items:center;gap:7px;font-size:.84rem;color:rgba(255,255,255,.62)}
+.trial-feat-dot{color:var(--green-light)}
+.btn-trial{background:linear-gradient(135deg,var(--green),var(--cyan));color:white;padding:17px 36px;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 10px 36px rgba(16,185,129,.38);transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-trial:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(16,185,129,.52)}
+.no-cc{font-size:.77rem;color:rgba(255,255,255,.28);margin-top:13px}
+.urgency-notice{display:inline-flex;align-items:center;gap:9px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.28);color:var(--gold-light);padding:9px 18px;border-radius:100px;font-size:.79rem;font-weight:600;margin-bottom:26px}
 
-  /* PRICING */
-  .pricing-section { background: var(--white); }
-  .pricing-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 28px; max-width: 780px; margin: 60px auto 0;
-  }
-  .pricing-card {
-    border-radius: 20px; padding: 40px 36px;
-    position: relative; transition: transform 0.25s;
-  }
-  .pricing-card:hover { transform: translateY(-6px); }
-  .pricing-card.standard {
-    background: var(--gray-50);
-    border: 2px solid var(--gray-100);
-  }
-  .pricing-card.popular {
-    background: var(--navy);
-    border: 2px solid rgba(59,130,246,0.4);
-    box-shadow: 0 20px 60px rgba(26,86,219,0.25);
-  }
-  .popular-badge {
-    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: white; font-size: 0.72rem; font-weight: 700;
-    padding: 5px 16px; border-radius: 100px;
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .plan-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.1em; margin-bottom: 12px; }
-  .standard .plan-label { color: var(--gray-500); }
-  .popular .plan-label { color: var(--cyan); }
-  .plan-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
-  .standard .plan-name { color: var(--navy); }
-  .popular .plan-name { color: white; }
-  .plan-price { margin: 20px 0; }
-  .price-amt { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; line-height: 1; }
-  .standard .price-amt { color: var(--navy); }
-  .popular .price-amt { color: white; }
-  .price-period { font-size: 0.85rem; font-weight: 400; }
-  .standard .price-period { color: var(--gray-500); }
-  .popular .price-period { color: rgba(255,255,255,0.5); }
-  .plan-desc { font-size: 0.88rem; line-height: 1.6; margin-bottom: 24px; }
-  .standard .plan-desc { color: var(--gray-500); }
-  .popular .plan-desc { color: rgba(255,255,255,0.6); }
-  .plan-perks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-  .perk { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; }
-  .standard .perk { color: var(--gray-700); }
-  .popular .perk { color: rgba(255,255,255,0.8); }
-  .perk-check { font-size: 0.9rem; }
-  .standard .perk-check { color: var(--green); }
-  .popular .perk-check { color: var(--green-light); }
-  .btn-plan-standard {
-    display: block; text-align: center;
-    background: white; border: 2px solid var(--blue);
-    color: var(--blue); padding: 14px;
-    border-radius: 10px; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; font-size: 0.95rem; cursor: pointer;
-    text-decoration: none; transition: background 0.2s, color 0.2s;
-  }
-  .btn-plan-standard:hover { background: var(--blue); color: white; }
-  .btn-plan-popular {
-    display: block; text-align: center;
-    background: linear-gradient(135deg, var(--blue), var(--cyan));
-    color: white; padding: 14px;
-    border-radius: 10px; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; font-size: 0.95rem; cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 6px 24px rgba(26,86,219,0.35);
-    transition: opacity 0.2s;
-  }
-  .btn-plan-popular:hover { opacity: 0.9; }
+/* PRICING */
+.pricing-section{background:var(--gray-50)}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px;margin:52px auto 0}
+.pricing-card{border-radius:22px;padding:36px 32px;position:relative;transition:transform .25s}
+.pricing-card:hover{transform:translateY(-6px)}
+.pricing-card.standard{background:white;border:2px solid var(--gray-200);box-shadow:0 4px 24px rgba(0,0,0,.05)}
+.pricing-card.popular{background:var(--navy);border:2px solid rgba(16,185,129,.4);box-shadow:0 20px 60px rgba(16,185,129,.18)}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--green),var(--cyan));color:white;font-size:.69rem;font-weight:700;padding:5px 16px;border-radius:100px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.plan-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.standard .plan-label{color:var(--gray-400)}
+.popular .plan-label{color:var(--cyan)}
+.plan-name{font-size:1.15rem;font-weight:800;margin-bottom:4px}
+.standard .plan-name{color:var(--navy)}
+.popular .plan-name{color:white}
+.plan-price{margin:16px 0}
+.price-amt{font-family:'Syne',sans-serif;font-size:2.65rem;font-weight:800;line-height:1}
+.standard .price-amt{color:var(--navy)}
+.popular .price-amt{color:white}
+.price-period{font-size:.82rem;font-weight:400}
+.standard .price-period{color:var(--gray-400)}
+.popular .price-period{color:rgba(255,255,255,.42)}
+.plan-desc{font-size:.84rem;line-height:1.6;margin-bottom:20px}
+.standard .plan-desc{color:var(--gray-500)}
+.popular .plan-desc{color:rgba(255,255,255,.55)}
+.plan-perks{display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.perk{display:flex;align-items:center;gap:9px;font-size:.85rem}
+.standard .perk{color:var(--gray-700)}
+.popular .perk{color:rgba(255,255,255,.78)}
+.perk-check{font-size:.83rem}
+.standard .perk-check{color:var(--green)}
+.popular .perk-check{color:var(--green-light)}
+.btn-plan-standard{display:block;text-align:center;background:white;border:2px solid var(--blue);color:var(--blue);padding:13px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
+.btn-plan-standard:hover{background:var(--blue);color:white}
+.btn-plan-popular{display:block;text-align:center;background:linear-gradient(135deg,var(--green),var(--cyan));color:white;padding:13px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;box-shadow:0 6px 22px rgba(16,185,129,.4);transition:opacity .2s}
+.btn-plan-popular:hover{opacity:.88}
 
-  /* CONTACT */
-  .contact-section {
-    background: linear-gradient(135deg, #f0f7ff 0%, #e8f5f0 100%);
-    text-align: center;
-  }
-  .contact-inner { max-width: 680px; margin: 0 auto; }
-  .contact-card {
-    background: white; border-radius: 24px;
-    padding: 56px 44px; margin-top: 50px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    border: 1px solid rgba(26,86,219,0.08);
-  }
-  .whatsapp-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: #25d366; color: white;
-    padding: 16px 32px; border-radius: 12px;
-    font-family: 'DM Sans', sans-serif; font-weight: 600;
-    font-size: 1rem; text-decoration: none; margin-bottom: 16px;
-    box-shadow: 0 8px 28px rgba(37,211,102,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,211,102,0.45); }
-  .contact-or { color: var(--gray-300); font-size: 0.9rem; margin: 16px 0; }
-  .contact-card .btn-primary { display: inline-block; }
+/* CONTACT */
+.contact-section{background:linear-gradient(135deg,#eef5ff 0%,#e8f5f0 100%);text-align:center}
+.contact-inner{max-width:680px;margin:0 auto}
+.contact-card{background:white;border-radius:24px;padding:48px 40px;margin-top:42px;box-shadow:0 20px 60px rgba(0,0,0,.07);border:1.5px solid rgba(26,86,219,.07)}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:white;padding:15px 28px;border-radius:12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;margin-bottom:14px;box-shadow:0 8px 26px rgba(37,211,102,.35);transition:transform .2s,box-shadow .2s}
+.whatsapp-btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(37,211,102,.48)}
+.contact-or{color:var(--gray-300);font-size:.87rem;margin:13px 0}
 
-  /* FOOTER */
-  footer {
-    background: var(--navy);
-    padding: 36px 5%; text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-  .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: 10px; }
-  .footer-logo span { background: linear-gradient(135deg, var(--blue-light), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  footer p { color: rgba(255,255,255,0.3); font-size: 0.82rem; }
+/* FOOTER */
+footer{background:var(--navy);padding:34px 5%;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+.footer-logo{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:white;margin-bottom:9px}
+.footer-logo span{background:linear-gradient(135deg,var(--blue-light),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+footer p{color:rgba(255,255,255,.26);font-size:.79rem;line-height:1.6}
 
-  /* ANIMATIONS */
-  .fade-up {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
 
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    .features-grid { grid-template-columns: repeat(2, 1fr); }
-    .who-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 768px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-    .hero-visual { order: -1; }
-    .problems-grid, .benefits-grid { grid-template-columns: 1fr; }
-    .features-grid { grid-template-columns: 1fr; }
-    .who-grid { grid-template-columns: 1fr; }
-    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
-    .solution-card, .contact-card { padding: 32px 24px; }
-    nav { padding: 0 4%; }
-    section { padding: 72px 5%; }
-    .trust-bar { flex-wrap: wrap; gap: 12px; }
-  }
+/* ══════════ CHATBOT ══════════ */
+#chat-launcher{position:fixed;bottom:26px;right:26px;z-index:1000;width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 6px 28px rgba(16,185,129,.52);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:transform .3s,box-shadow .3s;animation:chatPop .6s 2s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes chatPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+#chat-launcher:hover{transform:scale(1.08);box-shadow:0 10px 36px rgba(16,185,129,.68)}
+#chat-launcher.open{background:linear-gradient(135deg,#475569,#334155);box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.chat-hint-bubble{position:fixed;bottom:100px;right:26px;z-index:999;background:white;color:var(--navy);padding:10px 16px;border-radius:12px;font-size:.81rem;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.14);white-space:nowrap;animation:chatPop .5s 3.5s cubic-bezier(.34,1.56,.64,1) both}
+.chat-hint-bubble::after{content:'';position:absolute;bottom:-7px;right:22px;width:14px;height:8px;background:white;clip-path:polygon(0 0,100% 0,50% 100%)}
+#chat-window{position:fixed;bottom:102px;right:26px;z-index:999;width:370px;max-width:calc(100vw - 40px);background:white;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.06);display:none;flex-direction:column;overflow:hidden;transform-origin:bottom right;max-height:600px}
+#chat-window.open{display:flex;animation:chatOpen .3s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes chatOpen{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+.chat-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);padding:17px 18px;display:flex;align-items:center;gap:11px}
+.chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;box-shadow:0 0 0 3px rgba(255,255,255,.12)}
+.chat-agent-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.93rem;color:white}
+.chat-agent-status{display:flex;align-items:center;gap:5px;font-size:.7rem;color:rgba(255,255,255,.45);margin-top:2px}
+.chat-agent-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.chat-close{margin-left:auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;color:rgba(255,255,255,.55);font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.chat-close:hover{background:rgba(255,255,255,.18);color:white}
+.chat-body{flex:1;overflow-y:auto;padding:18px 14px;display:flex;flex-direction:column;gap:13px;background:#f8fafc;max-height:370px}
+.chat-body::-webkit-scrollbar{width:4px}
+.chat-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:2px}
+.msg{display:flex;gap:8px;align-items:flex-start}
+.msg.user{flex-direction:row-reverse}
+.msg-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;margin-top:2px}
+.msg-bubble{max-width:83%;padding:10px 13px;border-radius:16px;font-size:.83rem;line-height:1.55}
+.msg.bot .msg-bubble{background:white;color:var(--navy);border:1px solid var(--gray-200);border-bottom-left-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--blue),var(--cyan));color:white;border-bottom-right-radius:4px}
+.msg-time{font-size:.63rem;color:var(--gray-400);margin-top:3px}
+.msg.bot .msg-time{padding-left:36px}
+.msg.user .msg-time{text-align:right}
+.typing-ind{display:flex;gap:8px;align-items:flex-start}
+.typing-bubble{background:white;border:1px solid var(--gray-200);border-radius:16px;border-bottom-left-radius:4px;padding:12px 15px;display:flex;gap:5px;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--gray-300);animation:typeBounce 1.2s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typeBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.qr-area{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 12px}
+.qr-chip{background:white;border:1.5px solid var(--gray-200);color:var(--navy);padding:7px 13px;border-radius:100px;font-size:.79rem;font-weight:600;cursor:pointer;transition:all .18s;font-family:'DM Sans',sans-serif}
+.qr-chip:hover{background:var(--blue);color:white;border-color:var(--blue);transform:translateY(-1px)}
+.chat-input-area{padding:12px 14px 14px;border-top:1px solid var(--gray-100);background:white}
+.chat-row{display:flex;gap:8px;align-items:center}
+.chat-input{flex:1;border:1.5px solid var(--gray-200);border-radius:10px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:.84rem;color:var(--navy);outline:none;transition:border-color .2s}
+.chat-input:focus{border-color:var(--blue)}
+.chat-input::placeholder{color:var(--gray-400)}
+.chat-send{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--cyan));border:none;cursor:pointer;color:white;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:opacity .2s,transform .2s;flex-shrink:0}
+.chat-send:hover{opacity:.85;transform:scale(1.06)}
+.chat-field{border:1.5px solid var(--gray-200);border-radius:10px;padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:.84rem;color:var(--navy);outline:none;width:100%;transition:border-color .2s;margin-bottom:0}
+.chat-field:focus{border-color:var(--blue)}
+.chat-field::placeholder{color:var(--gray-400)}
+.chat-fields{display:flex;flex-direction:column;gap:7px}
+.chat-submit{width:100%;padding:12px;background:linear-gradient(135deg,var(--green),var(--cyan));color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.87rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .2s,transform .2s;margin-top:2px}
+.chat-submit:hover{opacity:.88;transform:translateY(-1px)}
+.confirm-card{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid rgba(16,185,129,.28);border-radius:14px;padding:16px;text-align:center}
+.confirm-icon{font-size:2rem;margin-bottom:7px}
+.confirm-title{font-family:'Syne',sans-serif;font-weight:800;font-size:.93rem;color:var(--navy);margin-bottom:6px}
+.confirm-text{font-size:.79rem;color:var(--gray-500);line-height:1.6;margin-bottom:11px}
+.confirm-eta{display:inline-flex;align-items:center;gap:6px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);color:var(--green);padding:5px 12px;border-radius:100px;font-size:.73rem;font-weight:700}
+.confirm-wa{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:11px;background:#25d366;color:white;padding:11px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.81rem;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}.who-grid{grid-template-columns:repeat(2,1fr)}.trust-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links{display:none}.hero-inner{grid-template-columns:1fr;gap:44px}.hero-visual{order:-1}.problems-grid,.benefits-grid{grid-template-columns:1fr}.features-grid{grid-template-columns:1fr}.who-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr;max-width:420px}.trust-cards{grid-template-columns:1fr}.trust-highlight{flex-direction:column}.flow-steps{gap:20px}.flow-step:not(:last-child)::after{display:none}section{padding:72px 5%}.contact-card{padding:30px 20px}.urgency-bar .hide-sm{display:none}}
+@media(max-width:480px){.flow-steps{flex-direction:column;align-items:flex-start}.flow-step{flex-direction:row;text-align:left;gap:13px;min-width:auto;width:100%}.step-num{flex-shrink:0}}
 </style>
 </head>
 <body>
 
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <strong>⚡ Limited Daily Slots</strong> — We activate accounts manually for quality setup
+  <span class="sep hide-sm">|</span>
+  <span class="hide-sm">Most approvals in</span>
+  <strong class="hide-sm"> 5–30 minutes</strong>
+  <span class="u-chip">🔥 Slots filling fast today</span>
+</div>
+
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <div class="logo-icon">📦</div>
-    Stock<span>Pilot</span>
+  <a href="#" class="nav-logo"><div class="logo-icon">📦</div>Stock<span>Pilot</span></a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#who">Who It's For</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
   </div>
-  <a href="#trial" class="nav-cta">Start Free Trial</a>
+  <a href="#" onclick="openChat();return false;" class="nav-cta">🚀 Get Free Access</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-badge">✦ Inventory Made Simple</div>
+      <div class="hero-badge">✦ Trusted by Nigerian Businesses</div>
       <h1>Take Full Control of Your <em>Inventory</em> with StockPilot</h1>
-      <p class="hero-sub">StockPilot is a powerful inventory management system that helps businesses track stock, manage sales, and avoid shortages with ease.</p>
+      <p class="hero-sub">StockPilot is a powerful inventory management system that helps businesses track stock, manage sales, and avoid shortages — on mobile or web, from anywhere.</p>
       <div class="hero-businesses">
         <span class="biz-tag">🏪 Stores</span>
         <span class="biz-tag">🛒 Supermarkets</span>
@@ -563,26 +357,14 @@
         <span class="biz-tag">💄 Cosmetics</span>
       </div>
       <div class="hero-btns">
-        <a href="#trial" class="btn-primary">🚀 Start Your 7-Day Free Trial</a>
-        <a href="#pricing" class="btn-secondary">Get Started Now</a>
+        <a href="#" onclick="openChat();return false;" class="btn-primary">🚀 Activate My Business Account</a>
+        <a href="#pricing" class="btn-secondary">View Pricing</a>
       </div>
-      <div class="trust-bar">
-        <div class="trust-item">
-          <div class="trust-num">500+</div>
-          <div class="trust-lbl">Businesses</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-num">99.9%</div>
-          <div class="trust-lbl">Uptime</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-num">7 Days</div>
-          <div class="trust-lbl">Free Trial</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-num">24/7</div>
-          <div class="trust-lbl">Support</div>
-        </div>
+      <div class="hero-trust">
+        <div class="htrust-item">✦ Used across <span>Nigeria</span></div>
+        <div class="htrust-item">✦ <span>Mobile &amp; Web</span></div>
+        <div class="htrust-item">✦ Ready in <span>30 minutes</span></div>
+        <div class="htrust-item">✦ <span>7-day free trial</span></div>
       </div>
     </div>
     <div class="hero-visual">
@@ -594,186 +376,148 @@
           <div class="mock-title">StockPilot Dashboard</div>
         </div>
         <div class="mock-stats">
-          <div class="mock-stat">
-            <div class="mock-stat-label">Total Products</div>
-            <div class="mock-stat-val">1,248</div>
-            <div class="mock-stat-change">↑ +12 this week</div>
-          </div>
-          <div class="mock-stat">
-            <div class="mock-stat-label">Today's Sales</div>
-            <div class="mock-stat-val">₦84,500</div>
-            <div class="mock-stat-change">↑ +18% vs yesterday</div>
-          </div>
-          <div class="mock-stat">
-            <div class="mock-stat-label">Low Stock Items</div>
-            <div class="mock-stat-val" style="color:#f59e0b">3</div>
-            <div class="mock-stat-change" style="color:rgba(255,255,255,0.35)">Alerts active</div>
-          </div>
-          <div class="mock-stat">
-            <div class="mock-stat-label">Customers</div>
-            <div class="mock-stat-val">342</div>
-            <div class="mock-stat-change">↑ +5 new today</div>
-          </div>
+          <div class="mock-stat"><div class="mock-stat-label">Total Products</div><div class="mock-stat-val">1,248</div><div class="mock-stat-change">↑ +12 this week</div></div>
+          <div class="mock-stat"><div class="mock-stat-label">Today's Sales</div><div class="mock-stat-val">₦84,500</div><div class="mock-stat-change">↑ +18% vs yesterday</div></div>
+          <div class="mock-stat"><div class="mock-stat-label">Low Stock Alerts</div><div class="mock-stat-val" style="color:var(--gold)">3</div><div class="mock-stat-change" style="color:rgba(255,255,255,.3)">Action needed</div></div>
+          <div class="mock-stat"><div class="mock-stat-label">Customers</div><div class="mock-stat-val">342</div><div class="mock-stat-change">↑ +5 new today</div></div>
         </div>
-        <div class="mock-bar-section">
-          <div class="mock-bar-label"><span>Rice (50kg bags)</span><span style="color:white">78%</span></div>
-          <div class="mock-bar"><div class="mock-bar-fill" style="width:78%;background:linear-gradient(90deg,#1a56db,#06b6d4)"></div></div>
-        </div>
-        <div class="mock-bar-section">
-          <div class="mock-bar-label"><span>Paracetamol 500mg</span><span style="color:#f59e0b">24%</span></div>
-          <div class="mock-bar"><div class="mock-bar-fill" style="width:24%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
-        </div>
-        <div class="mock-bar-section">
-          <div class="mock-bar-label"><span>Tomato Paste (crate)</span><span style="color:#10b981">91%</span></div>
-          <div class="mock-bar"><div class="mock-bar-fill" style="width:91%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div>
-        </div>
-        <div class="mock-alert">
-          <span class="alert-icon">⚠️</span>
-          <span><strong>Low Stock Alert:</strong> Paracetamol 500mg — only 12 units left</span>
-        </div>
+        <div class="mock-bar-section"><div class="mock-bar-label"><span>Rice (50kg bags)</span><span style="color:white">78%</span></div><div class="mock-bar"><div class="mock-bar-fill" style="width:78%;background:linear-gradient(90deg,#1a56db,#06b6d4)"></div></div></div>
+        <div class="mock-bar-section"><div class="mock-bar-label"><span>Paracetamol 500mg</span><span style="color:var(--gold)">24%</span></div><div class="mock-bar"><div class="mock-bar-fill" style="width:24%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div></div>
+        <div class="mock-bar-section"><div class="mock-bar-label"><span>Tomato Paste (crate)</span><span style="color:var(--green-light)">91%</span></div><div class="mock-bar"><div class="mock-bar-fill" style="width:91%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div></div>
+        <div class="mock-alert"><span>⚠️</span><span><strong>Low Stock Alert:</strong> Paracetamol 500mg — only 12 units left</span></div>
       </div>
+      <div class="float-badge"><div class="float-badge-icon">⚡</div><div class="float-badge-text">Account setup<br><em>within 30 minutes</em></div></div>
+      <div class="float-badge2"><span>📍</span><strong>500+ businesses</strong> in Nigeria</div>
     </div>
   </div>
 </section>
+
+<!-- TRUST RIBBON -->
+<div class="trust-ribbon">
+  <div class="trust-ribbon-inner" id="ribbon">
+    <div class="trb-item"><span class="dot"></span><strong>Pharmacies</strong> — Stock &amp; expiry tracking</div>
+    <div class="trb-item"><span class="dot"></span><strong>Supermarkets</strong> — Manage 1000s of SKUs</div>
+    <div class="trb-item"><span class="dot"></span><strong>Provision Shops</strong> — Daily restocking</div>
+    <div class="trb-item"><span class="dot"></span><strong>Warehouses</strong> — Bulk inventory control</div>
+    <div class="trb-item"><span class="dot"></span><strong>Electronics</strong> — Track high-value items</div>
+    <div class="trb-item"><span class="dot"></span><strong>Cosmetic Shops</strong> — Fast-moving stock</div>
+    <div class="trb-item"><span class="dot"></span><strong>Mini Marts</strong> — Affordable &amp; powerful</div>
+    <div class="trb-item"><span class="dot"></span><strong>Pharmacies</strong> — Stock &amp; expiry tracking</div>
+    <div class="trb-item"><span class="dot"></span><strong>Supermarkets</strong> — Manage 1000s of SKUs</div>
+    <div class="trb-item"><span class="dot"></span><strong>Provision Shops</strong> — Daily restocking</div>
+    <div class="trb-item"><span class="dot"></span><strong>Warehouses</strong> — Bulk inventory control</div>
+    <div class="trb-item"><span class="dot"></span><strong>Electronics</strong> — Track high-value items</div>
+    <div class="trb-item"><span class="dot"></span><strong>Cosmetic Shops</strong> — Fast-moving stock</div>
+    <div class="trb-item"><span class="dot"></span><strong>Mini Marts</strong> — Affordable &amp; powerful</div>
+  </div>
+</div>
+
+<!-- CONVERSION FLOW -->
+<div class="flow-section">
+  <div class="flow-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title" style="margin-bottom:8px">From Visitor to Live Business Account</h2>
+    <p class="section-sub">A fast, guided onboarding process. Your business can be live on StockPilot in under 30 minutes.</p>
+    <div class="flow-steps fade-up">
+      <div class="flow-step"><div class="step-num green">1</div><div><div class="step-label">Visit Funnel</div><div class="step-sub">Learn about StockPilot</div><span class="step-time">Right now</span></div></div>
+      <div class="flow-step"><div class="step-num">2</div><div><div class="step-label">Chat &amp; Qualify</div><div class="step-sub">Share your business details</div><span class="step-time">2 minutes</span></div></div>
+      <div class="flow-step"><div class="step-num">3</div><div><div class="step-label">WhatsApp Sent</div><div class="step-sub">Request reaches our team instantly</div><span class="step-time">Instant</span></div></div>
+      <div class="flow-step"><div class="step-num">4</div><div><div class="step-label">Admin Setup</div><div class="step-sub">Manual onboarding for quality</div><span class="step-time">5–30 min</span></div></div>
+      <div class="flow-step"><div class="step-num">5</div><div><div class="step-label">Get PIN &amp; Login</div><div class="step-sub">Credentials via WhatsApp</div><span class="step-time">Same day</span></div></div>
+      <div class="flow-step"><div class="step-num green">6</div><div><div class="step-label">Start Trial 🎉</div><div class="step-sub">Full system, 7 days free</div><span class="step-time">7 days free</span></div></div>
+    </div>
+  </div>
+</div>
 
 <!-- PROBLEM -->
 <section class="problem-section">
   <div class="section-inner">
     <div class="section-label">The Problem</div>
-    <h2 class="section-title">Are These Problems Slowing<br>Your Business Down?</h2>
-    <p class="section-sub">Thousands of business owners struggle with these daily inventory challenges — and it's costing them money.</p>
+    <h2 class="section-title">Are These Problems Costing<br>Your Business Money?</h2>
+    <p class="section-sub">Thousands of Nigerian business owners deal with these challenges daily — and it's silently draining profit.</p>
     <div class="problems-grid fade-up">
       <div class="problem-list">
-        <div class="problem-item">
-          <div class="prob-icon">😰</div>
-          <div class="prob-text"><strong>Losing track of stock</strong> — not knowing what you have or how much is left until it's too late.</div>
-        </div>
-        <div class="problem-item">
-          <div class="prob-icon">📉</div>
-          <div class="prob-text"><strong>Running out of products unexpectedly</strong> — causing customer disappointment and lost sales.</div>
-        </div>
-        <div class="problem-item">
-          <div class="prob-icon">📝</div>
-          <div class="prob-text"><strong>Manual record keeping errors</strong> — notebooks and spreadsheets that get lost, damaged, or are full of mistakes.</div>
-        </div>
-        <div class="problem-item">
-          <div class="prob-icon">📊</div>
-          <div class="prob-text"><strong>Difficulty monitoring sales</strong> — no clear picture of what's selling, what's not, or your daily revenue.</div>
-        </div>
-        <div class="problem-item">
-          <div class="prob-icon">🗂️</div>
-          <div class="prob-text"><strong>Poor inventory organization</strong> — products misplaced, duplicated, or just impossible to find when needed.</div>
-        </div>
+        <div class="problem-item"><div class="prob-icon">😰</div><div class="prob-text"><strong>Losing track of stock</strong> — you don't know what's left until a customer asks and it's already gone.</div></div>
+        <div class="problem-item"><div class="prob-icon">📉</div><div class="prob-text"><strong>Running out unexpectedly</strong> — no warning, no alert. Just empty shelves and disappointed customers.</div></div>
+        <div class="problem-item"><div class="prob-icon">📝</div><div class="prob-text"><strong>Manual record keeping errors</strong> — notebooks and spreadsheets that are always wrong or go missing.</div></div>
+        <div class="problem-item"><div class="prob-icon">📊</div><div class="prob-text"><strong>Difficulty monitoring sales</strong> — no clear picture of revenue, profits, or which products are actually selling.</div></div>
+        <div class="problem-item"><div class="prob-icon">🗂️</div><div class="prob-text"><strong>Poor inventory organisation</strong> — products duplicated, misplaced, or impossible to find when needed.</div></div>
       </div>
       <div class="solution-card">
         <h3>StockPilot Is the <span>Simple, Reliable</span> Solution You've Been Looking For</h3>
-        <p>Stop running your business in the dark. StockPilot gives you complete visibility and control over your inventory — from anywhere, at any time.</p>
+        <p>StockPilot is already helping businesses like yours reduce stock loss and track sales with complete clarity — every single day.</p>
         <div class="solution-points">
-          <div class="sol-point"><div class="sol-check">✓</div>Know your exact stock levels in real time</div>
-          <div class="sol-point"><div class="sol-check">✓</div>Get alerted before products run out</div>
-          <div class="sol-point"><div class="sol-check">✓</div>Replace pen-and-paper with smart digital tracking</div>
-          <div class="sol-point"><div class="sol-check">✓</div>See all your sales data in one dashboard</div>
-          <div class="sol-point"><div class="sol-check">✓</div>Perfectly organized products at all times</div>
+          <div class="sol-point"><div class="sol-check">✓</div>Know exact stock levels in real time — always</div>
+          <div class="sol-point"><div class="sol-check">✓</div>Automatic alerts before any product runs out</div>
+          <div class="sol-point"><div class="sol-check">✓</div>Replace pen-and-paper with smart digital records</div>
+          <div class="sol-point"><div class="sol-check">✓</div>See all your sales in one clean dashboard</div>
+          <div class="sol-point"><div class="sol-check">✓</div>Access from your phone or computer, anytime</div>
         </div>
-        <a href="#trial" class="btn-trial">Try StockPilot Free →</a>
+        <a href="#" onclick="openChat();return false;" class="btn-primary">Get My StockPilot Access Now →</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
-<section>
+<section id="features">
   <div class="section-inner">
     <div class="section-label">Features</div>
-    <h2 class="section-title">Everything You Need to Run<br>a Smarter Business</h2>
-    <p class="section-sub">StockPilot is packed with powerful features designed specifically for African business owners.</p>
+    <h2 class="section-title">Everything Your Business Needs<br>to Run Smarter</h2>
+    <p class="section-sub">Built for Nigerian business owners — practical, powerful, and easy to use from day one.</p>
     <div class="features-grid fade-up">
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(26,86,219,0.08)">📦</div>
-        <div class="feat-title">Product & Stock Management</div>
-        <div class="feat-desc">Add, edit, and manage all your products with ease. Organize by category, unit, and supplier.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(6,182,212,0.08)">📈</div>
-        <div class="feat-title">Real-Time Sales Tracking</div>
-        <div class="feat-desc">Monitor every sale as it happens. View daily, weekly, and monthly sales summaries instantly.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(245,158,11,0.08)">🔔</div>
-        <div class="feat-title">Low Stock Alerts</div>
-        <div class="feat-desc">Automatic alerts notify you when any product is running low — before it runs out completely.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(16,185,129,0.08)">👥</div>
-        <div class="feat-title">Customer Records</div>
-        <div class="feat-desc">Keep detailed records of your customers, purchase history, and outstanding payments.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(168,85,247,0.08)">½</div>
-        <div class="feat-title">Partial Stock Recording</div>
-        <div class="feat-desc">Record partial stock like half a pack, half a crate, or any fractional unit — perfect for pharmacies and provision shops.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(26,86,219,0.08)">☁️</div>
-        <div class="feat-title">Secure Cloud Storage</div>
-        <div class="feat-desc">Your data is safely backed up in the cloud. Never lose your business records again — access from anywhere.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(6,182,212,0.08)">✨</div>
-        <div class="feat-title">Easy-to-Use Interface</div>
-        <div class="feat-desc">Designed to be simple enough for anyone to use — no technical skills or training required.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:rgba(16,185,129,0.08)">📱</div>
-        <div class="feat-title">Mobile App & Web</div>
-        <div class="feat-desc">Use StockPilot on your phone or computer. Manage your inventory wherever you are.</div>
-      </div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(26,86,219,.08)">📦</div><div class="feat-title">Product &amp; Stock Management</div><div class="feat-desc">Add, edit, and organise all products by category, unit, and supplier in seconds.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(16,185,129,.08)">📈</div><div class="feat-title">Real-Time Sales Tracking</div><div class="feat-desc">Monitor every sale as it happens. Daily, weekly, and monthly revenue at a glance.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(245,158,11,.08)">🔔</div><div class="feat-title">Low Stock Alerts</div><div class="feat-desc">Automatic notifications warn you before any product runs out — zero surprises.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(6,182,212,.08)">👥</div><div class="feat-title">Customer Records</div><div class="feat-desc">Track customers, purchase history, and outstanding balances in one place.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(168,85,247,.08)">½</div><div class="feat-title">Partial Stock Recording</div><div class="feat-desc">Record half a pack, half a crate, or any fraction — ideal for pharmacies and provision shops.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(26,86,219,.08)">☁️</div><div class="feat-title">Secure Cloud Storage</div><div class="feat-desc">Business data safely backed up. Never lose your records — access from anywhere.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(16,185,129,.08)">✨</div><div class="feat-title">Easy-to-Use Interface</div><div class="feat-desc">Simple enough for anyone. No technical skills or special training required.</div></div>
+      <div class="feature-card"><div class="feat-icon" style="background:rgba(245,158,11,.08)">📱</div><div class="feat-title">Mobile App &amp; Web</div><div class="feat-desc">Manage inventory from your phone or computer. StockPilot works wherever you are.</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHO CAN USE -->
-<section class="who-section">
+<!-- WHO -->
+<section class="who-section" id="who">
   <div class="section-inner">
     <div class="section-label">Who It's For</div>
-    <h2 class="section-title">StockPilot Works for<br>Any Product-Based Business</h2>
-    <p class="section-sub">Whether you run a small shop or a large warehouse, StockPilot adapts perfectly to your business needs.</p>
+    <h2 class="section-title">Works Perfectly for Any<br>Product-Based Business</h2>
+    <p class="section-sub">Whether you run a small shop or a large warehouse, StockPilot fits your business — not the other way around.</p>
     <div class="who-grid fade-up">
-      <div class="who-card">
-        <div class="who-icon">💊</div>
-        <div><div class="who-name">Pharmacies</div><div class="who-desc">Track medicines, manage expiry dates & partial packs</div></div>
+      <div class="who-card"><div class="who-icon">💊</div><div><div class="who-name">Pharmacies</div><div class="who-desc">Track medicines, expiry dates &amp; partial packs</div></div></div>
+      <div class="who-card"><div class="who-icon">🛒</div><div><div class="who-name">Supermarkets</div><div class="who-desc">Manage thousands of SKUs with ease</div></div></div>
+      <div class="who-card"><div class="who-icon">🏬</div><div><div class="who-name">Retail Stores</div><div class="who-desc">Track sales, customers &amp; restocking needs</div></div></div>
+      <div class="who-card"><div class="who-icon">🥫</div><div><div class="who-name">Provision Shops</div><div class="who-desc">Manage food items, drinks &amp; household goods</div></div></div>
+      <div class="who-card"><div class="who-icon">🏭</div><div><div class="who-name">Warehouses</div><div class="who-desc">Full stock control for bulk goods &amp; distribution</div></div></div>
+      <div class="who-card"><div class="who-icon">🔌</div><div><div class="who-name">Electronics Stores</div><div class="who-desc">Track high-value products &amp; serial numbers</div></div></div>
+      <div class="who-card"><div class="who-icon">💄</div><div><div class="who-name">Cosmetic Shops</div><div class="who-desc">Manage beauty products &amp; fast-moving stock</div></div></div>
+      <div class="who-card"><div class="who-icon">🏪</div><div><div class="who-name">Mini Marts</div><div class="who-desc">Affordable &amp; powerful for growing businesses</div></div></div>
+      <div class="who-card"><div class="who-icon">🛍</div><div><div class="who-name">General Stores</div><div class="who-desc">All-in-one inventory solution for any shop</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SECTION -->
+<section class="trust-section">
+  <div class="trust-section-inner">
+    <div class="section-label" style="display:block;text-align:center">Why Trust StockPilot</div>
+    <h2 class="section-title" style="text-align:center">Built for Nigerian Businesses.<br>Backed by Real Results.</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto">We don't just sell software — we manually onboard every business to ensure you get proper setup and real support from day one.</p>
+    <div class="trust-cards fade-up">
+      <div class="trust-card"><div class="trust-card-icon">🇳🇬</div><div class="trust-card-title">Used Across Nigeria</div><div class="trust-card-text">Small businesses across Nigeria trust StockPilot — from Lagos markets to Abuja pharmacies to Kano provision stores.</div></div>
+      <div class="trust-card"><div class="trust-card-icon">🔧</div><div class="trust-card-title">Manual Setup = Premium Onboarding</div><div class="trust-card-text">We activate accounts manually so every business gets the right configuration and personal support — not just a link.</div></div>
+      <div class="trust-card"><div class="trust-card-icon">⚡</div><div class="trust-card-title">Fast Activation</div><div class="trust-card-text">Most accounts approved in 5–30 minutes. Submit now and your business could be live before the end of the day.</div></div>
+    </div>
+    <div class="trust-highlight">
+      <div class="th-left">
+        <h4>StockPilot is already helping businesses like yours</h4>
+        <p>From pharmacies to supermarkets, retail stores to warehouses — businesses that switched to StockPilot report fewer stock errors, clearer sales visibility, and more time to focus on growing.</p>
       </div>
-      <div class="who-card">
-        <div class="who-icon">🛒</div>
-        <div><div class="who-name">Supermarkets</div><div class="who-desc">Manage thousands of SKUs with ease</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🏬</div>
-        <div><div class="who-name">Retail Stores</div><div class="who-desc">Track sales, customers, and restocking needs</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🥫</div>
-        <div><div class="who-name">Provision Shops</div><div class="who-desc">Easily manage food items, drinks, and household goods</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🏭</div>
-        <div><div class="who-name">Warehouses</div><div class="who-desc">Full stock control for bulk goods and distribution</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🔌</div>
-        <div><div class="who-name">Electronics Stores</div><div class="who-desc">Track high-value products and serial numbers</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">💄</div>
-        <div><div class="who-name">Cosmetic Shops</div><div class="who-desc">Manage beauty products and track fast-moving stock</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🏪</div>
-        <div><div class="who-name">Mini Marts</div><div class="who-desc">Affordable solution for small and growing businesses</div></div>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🛍</div>
-        <div><div class="who-name">General Stores</div><div class="who-desc">All-in-one inventory solution for any shop type</div></div>
+      <div class="th-stats">
+        <div><div class="th-stat-val">500+</div><div class="th-stat-lbl">Active Businesses</div></div>
+        <div><div class="th-stat-val">80%</div><div class="th-stat-lbl">Less Stock Loss</div></div>
+        <div><div class="th-stat-val">30min</div><div class="th-stat-lbl">Avg. Setup Time</div></div>
       </div>
     </div>
   </div>
@@ -782,67 +526,25 @@
 <!-- BENEFITS -->
 <section class="benefits-section">
   <div class="section-inner">
-    <div class="section-label">Benefits</div>
+    <div class="section-label">Business Benefits</div>
     <h2 class="section-title">Why Business Owners<br>Love StockPilot</h2>
-    <p class="section-sub">StockPilot doesn't just manage inventory — it transforms how you run your entire business.</p>
+    <p class="section-sub">StockPilot doesn't just track inventory — it transforms how you run your entire business.</p>
     <div class="benefits-grid fade-up">
       <div class="benefit-list">
-        <div class="benefit-item">
-          <div class="ben-icon" style="background:rgba(26,86,219,0.08)">⏱️</div>
-          <div>
-            <div class="ben-title">Save Time Managing Inventory</div>
-            <div class="ben-desc">What used to take hours now takes minutes. Spend less time counting and more time selling.</div>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="ben-icon" style="background:rgba(239,68,68,0.08)">🛡️</div>
-          <div>
-            <div class="ben-title">Prevent Stock Loss & Errors</div>
-            <div class="ben-desc">Eliminate costly mistakes from manual records. Every product, every unit is accurately tracked.</div>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="ben-icon" style="background:rgba(16,185,129,0.08)">💰</div>
-          <div>
-            <div class="ben-title">Track Sales & Profits Easily</div>
-            <div class="ben-desc">Know exactly how much you're making every day, week, and month. No more guessing.</div>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="ben-icon" style="background:rgba(245,158,11,0.08)">🗂️</div>
-          <div>
-            <div class="ben-title">Keep Your Business Organized</div>
-            <div class="ben-desc">Every product, every customer, every sale — all organized and easy to find whenever you need it.</div>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <div class="ben-icon" style="background:rgba(168,85,247,0.08)">🌐</div>
-          <div>
-            <div class="ben-title">Access Your Data Anytime</div>
-            <div class="ben-desc">Log in from your phone, tablet, or computer. Your business data is always at your fingertips.</div>
-          </div>
-        </div>
+        <div class="benefit-item"><div class="ben-icon" style="background:rgba(26,86,219,.08)">⏱️</div><div><div class="ben-title">Save Time Managing Inventory</div><div class="ben-desc">What used to take hours now takes minutes. Less counting, more selling.</div></div></div>
+        <div class="benefit-item"><div class="ben-icon" style="background:rgba(239,68,68,.08)">🛡️</div><div><div class="ben-title">Prevent Stock Loss &amp; Errors</div><div class="ben-desc">Eliminate costly manual mistakes. Every product, every unit — accurately tracked, always.</div></div></div>
+        <div class="benefit-item"><div class="ben-icon" style="background:rgba(16,185,129,.08)">💰</div><div><div class="ben-title">Track Sales &amp; Profits Easily</div><div class="ben-desc">Know exactly how much you're making daily, weekly, monthly. No more guessing.</div></div></div>
+        <div class="benefit-item"><div class="ben-icon" style="background:rgba(245,158,11,.08)">🗂️</div><div><div class="ben-title">Keep Your Business Organised</div><div class="ben-desc">Every product, customer, and sale — always organised and easy to find.</div></div></div>
+        <div class="benefit-item"><div class="ben-icon" style="background:rgba(168,85,247,.08)">🌐</div><div><div class="ben-title">Access Your Data Anytime</div><div class="ben-desc">Log in from phone, tablet, or computer. Your data is always at your fingertips.</div></div></div>
       </div>
       <div class="metrics-card">
-        <h3>Real Results for Real Businesses</h3>
-        <p>Business owners using StockPilot report measurable improvements within the first week of use.</p>
+        <h3>Real Results from Real Businesses</h3>
+        <p>Businesses on StockPilot report measurable improvements from their very first week.</p>
         <div class="metrics-grid">
-          <div class="metric-box">
-            <div class="metric-val">80%</div>
-            <div class="metric-lbl">Reduction in stock errors</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">3hrs</div>
-            <div class="metric-lbl">Saved daily on admin</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">0</div>
-            <div class="metric-lbl">Unexpected stockouts</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">100%</div>
-            <div class="metric-lbl">Business clarity</div>
-          </div>
+          <div class="metric-box"><div class="metric-val">80%</div><div class="metric-lbl">Reduction in stock errors</div></div>
+          <div class="metric-box"><div class="metric-val">3hrs</div><div class="metric-lbl">Saved daily on admin</div></div>
+          <div class="metric-box"><div class="metric-val">Zero</div><div class="metric-lbl">Unexpected stockouts</div></div>
+          <div class="metric-box"><div class="metric-val">100%</div><div class="metric-lbl">Business clarity</div></div>
         </div>
       </div>
     </div>
@@ -852,54 +554,49 @@
 <!-- FREE TRIAL -->
 <section class="trial-section" id="trial">
   <div class="trial-inner">
-    <div class="section-label">Free Trial</div>
-    <h2 class="section-title" style="max-width:600px">Try the Full System Free for 7 Days — No Demo Needed</h2>
-    <p class="section-sub">No demo. No limited version. You get full access to every feature of StockPilot, completely free for 7 days. See the difference for yourself before paying anything.</p>
+    <div class="section-label">7-Day Free Trial</div>
+    <div class="urgency-notice">⚡ Free trial slots are limited daily — secure yours now</div>
+    <h2 class="section-title" style="max-width:640px;margin:0 auto 14px">Start Your Free 7-Day Business Setup Today</h2>
+    <p class="section-sub">No demo call. No limited version. Full access to every feature for 7 days — free. Your account will be ready within 30 minutes of submission.</p>
     <div class="trial-features">
-      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Full access to all features</div>
-      <div class="trial-feat"><span class="trial-feat-dot">✓</span> No credit card required</div>
-      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Setup in under 5 minutes</div>
-      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Free support included</div>
+      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Full access — all features</div>
+      <div class="trial-feat"><span class="trial-feat-dot">✓</span> No credit card needed</div>
+      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Account live in 30 min</div>
+      <div class="trial-feat"><span class="trial-feat-dot">✓</span> Personal setup support</div>
     </div>
-    <a href="https://wa.me/2347080951392?text=Hi%2C%20I%20want%20to%20start%20my%207-Day%20Free%20Trial%20on%20StockPilot" class="btn-trial" target="_blank">🚀 Start My Free Trial</a>
-    <p class="no-cc">7 days free · No payment needed · Cancel anytime</p>
+    <a href="#" onclick="openChat();return false;" class="btn-trial">🚀 Start My Free Trial</a>
+    <p class="no-cc">7 days free · No payment · Manual setup ensures quality · Cancel anytime</p>
   </div>
 </section>
 
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="section-inner" style="text-align:center">
-    <div class="section-label">Pricing</div>
-    <h2 class="section-title">Simple, Transparent Pricing</h2>
-    <p class="section-sub" style="margin:0 auto">Choose the plan that works best for your business. Both plans include full access to all StockPilot features.</p>
+    <div class="section-label">Simple Pricing</div>
+    <h2 class="section-title">Transparent Plans. No Hidden Fees.</h2>
+    <p class="section-sub" style="margin:0 auto">Both plans include full feature access, free setup support, and a 7-day free trial.</p>
     <div class="pricing-grid fade-up">
       <div class="pricing-card popular">
-        <div class="popular-badge">⭐ Best Value</div>
+        <div class="popular-badge">⭐ Best Value — Most Popular</div>
         <div class="plan-label">One-Time Payment</div>
         <div class="plan-name">Lifetime Access</div>
-        <div class="plan-price">
-          <div class="price-amt">₦100,000</div>
-          <div class="price-period">pay once, use forever</div>
-        </div>
-        <div class="plan-desc">Own StockPilot outright. No recurring fees — ever. Perfect for established businesses.</div>
+        <div class="plan-price"><div class="price-amt">₦100,000</div><div class="price-period">pay once · own it forever</div></div>
+        <div class="plan-desc">Buy once. No subscriptions. No renewals. Free lifetime updates included.</div>
         <div class="plan-perks">
-          <div class="perk"><span class="perk-check">✓</span> All features included</div>
+          <div class="perk"><span class="perk-check">✓</span> All features — forever</div>
           <div class="perk"><span class="perk-check">✓</span> Free lifetime updates</div>
-          <div class="perk"><span class="perk-check">✓</span> Priority support</div>
+          <div class="perk"><span class="perk-check">✓</span> Priority WhatsApp support</div>
           <div class="perk"><span class="perk-check">✓</span> Mobile app + web access</div>
           <div class="perk"><span class="perk-check">✓</span> Secure cloud storage</div>
           <div class="perk"><span class="perk-check">✓</span> 7-day free trial included</div>
         </div>
-        <a href="https://wa.me/2347080951392?text=I%20want%20to%20get%20StockPilot%20One-Time%20Lifetime%20Plan" class="btn-plan-popular" target="_blank">Get Lifetime Access</a>
+        <a href="#" onclick="openChat();return false;" class="btn-plan-popular">Activate My Business Account</a>
       </div>
       <div class="pricing-card standard">
         <div class="plan-label">Monthly Subscription</div>
         <div class="plan-name">Monthly Plan</div>
-        <div class="plan-price">
-          <div class="price-amt">₦5,000</div>
-          <div class="price-period">/ month</div>
-        </div>
-        <div class="plan-desc">Affordable monthly access. Great for new businesses wanting to start small and grow.</div>
+        <div class="plan-price"><div class="price-amt">₦5,000</div><div class="price-period">/ month</div></div>
+        <div class="plan-desc">Start small and scale. Affordable monthly access with continued support and updates.</div>
         <div class="plan-perks">
           <div class="perk"><span class="perk-check">✓</span> All features included</div>
           <div class="perk"><span class="perk-check">✓</span> Monthly updates</div>
@@ -908,30 +605,28 @@
           <div class="perk"><span class="perk-check">✓</span> Secure cloud storage</div>
           <div class="perk"><span class="perk-check">✓</span> 7-day free trial included</div>
         </div>
-        <a href="https://wa.me/2347080951392?text=I%20want%20to%20get%20StockPilot%20Monthly%20Plan" class="btn-plan-standard" target="_blank">Get Monthly Access</a>
+        <a href="#" onclick="openChat();return false;" class="btn-plan-standard">Start Free 7-Day Business Setup</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section">
+<section class="contact-section" id="contact">
   <div class="section-inner">
     <div class="contact-inner">
-      <div class="section-label" style="display:block;text-align:center">Contact & Support</div>
+      <div class="section-label" style="display:block;text-align:center">Get Started Today</div>
       <h2 class="section-title" style="text-align:center">Ready to Transform<br>Your Business?</h2>
-      <p class="section-sub" style="margin:0 auto;text-align:center">Start your free trial today or reach out to us on WhatsApp. We're here to help you get set up and running in minutes.</p>
+      <p class="section-sub" style="margin:0 auto;text-align:center">Start your free trial or reach out on WhatsApp. Our team typically responds within minutes.</p>
       <div class="contact-card">
-        <p style="font-size:1rem;color:var(--gray-500);margin-bottom:28px;line-height:1.7">
-          Have questions? Want help getting started? Our team is available on WhatsApp to answer your questions and guide you through setup — for free.
-        </p>
-        <a href="https://wa.me/2347080951392?text=Hi%2C%20I%20want%20to%20learn%20more%20about%20StockPilot" class="whatsapp-btn" target="_blank">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <p style="font-size:.93rem;color:var(--gray-500);margin-bottom:24px;line-height:1.7">Have questions before starting? Message us on WhatsApp and we'll answer within minutes. <strong style="color:var(--navy)">We activate accounts manually</strong> so every business gets proper onboarding support — not just a login link.</p>
+        <a href="https://wa.me/2347080951392?text=Hi%2C%20I%20want%20to%20learn%20more%20about%20StockPilot" class="whatsapp-btn" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Chat on WhatsApp: 07080951392
         </a>
-        <div class="contact-or">— or —</div>
-        <a href="https://wa.me/2347080951392?text=Hi%2C%20I%20want%20to%20start%20my%207-Day%20Free%20Trial%20on%20StockPilot" class="btn-primary" target="_blank">🚀 Start 7-Day Free Trial</a>
-        <p style="margin-top:16px;font-size:0.82rem;color:var(--gray-300)">Free for 7 days · No credit card required · Set up in minutes</p>
+        <div class="contact-or">— or use the assistant below —</div>
+        <a href="#" onclick="openChat();return false;" class="btn-primary" style="display:inline-flex">🚀 Start 7-Day Free Trial</a>
+        <p style="margin-top:13px;font-size:.78rem;color:var(--gray-300)">Free for 7 days · No credit card · Account ready in 30 minutes</p>
       </div>
     </div>
   </div>
@@ -941,40 +636,227 @@
 <footer>
   <div class="footer-logo">Stock<span>Pilot</span></div>
   <p>© 2025 StockPilot Inventory Management System. All rights reserved.</p>
-  <p style="margin-top:6px">Built for Nigerian businesses. Designed to help you grow.</p>
+  <p style="margin-top:5px">Built for Nigerian businesses. Trusted by stores, pharmacies, supermarkets &amp; more.</p>
 </footer>
 
+<!-- ══════ CHATBOT ══════ -->
+<div class="chat-hint-bubble" id="chat-hint">👋 Let's get you set up!</div>
+<button id="chat-launcher" onclick="toggleChat()" aria-label="Open StockPilot assistant">
+  <span id="chat-icon">💬</span>
+</button>
+<div id="chat-window" role="dialog" aria-label="StockPilot business assistant">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div>
+      <div class="chat-agent-name">StockPilot Assistant</div>
+      <div class="chat-agent-status">Online · replies in minutes</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()" aria-label="Close">✕</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="qr-area" id="qr-area"></div>
+  <div class="chat-input-area" id="chat-input-area">
+    <div class="chat-row">
+      <input type="text" class="chat-input" id="user-input" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button class="chat-send" onclick="sendMsg()" aria-label="Send">➤</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  // Intersection Observer for fade-up animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+/* ── ANIMATIONS ── */
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)'}}),{threshold:.08});
+document.querySelectorAll('.feature-card,.who-card,.problem-item,.trust-card').forEach((el,i)=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition=`opacity .5s ease ${i*.06}s,transform .5s ease ${i*.06}s`;co.observe(el);});
+setTimeout(()=>{const h=document.getElementById('chat-hint');if(h)h.style.display='none';},7000);
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+/* ── CHATBOT STATE ── */
+const WA='2347080951392';
+let open=false,step=0,collecting=false,ud={};
 
-  // Staggered feature card animation
-  const cards = document.querySelectorAll('.feature-card, .who-card, .problem-item');
-  cards.forEach((card, i) => {
-    card.style.animationDelay = `${i * 0.07}s`;
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+function toggleChat(){
+  open=!open;
+  const win=document.getElementById('chat-window');
+  const launcher=document.getElementById('chat-launcher');
+  const icon=document.getElementById('chat-icon');
+  const hint=document.getElementById('chat-hint');
+  if(hint)hint.style.display='none';
+  if(open){
+    win.classList.add('open');win.style.display='flex';
+    launcher.classList.add('open');icon.textContent='✕';
+    if(step===0)setTimeout(startChat,300);
+  } else {
+    win.classList.remove('open');win.style.display='none';
+    launcher.classList.remove('open');icon.textContent='💬';
+  }
+}
+function openChat(){if(!open)toggleChat();}
+
+function ts(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');}
+
+function bot(html,delay=0){
+  return new Promise(res=>{
+    setTimeout(()=>{
+      const body=document.getElementById('chat-body');
+      const tid='t'+Date.now();
+      const typing=document.createElement('div');
+      typing.className='typing-ind'; typing.id=tid;
+      typing.innerHTML=`<div class="msg-av">🤖</div><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+      body.appendChild(typing); body.scrollTop=body.scrollHeight;
+      const td=Math.min(html.replace(/<[^>]+>/g,'').length*16,1100);
+      setTimeout(()=>{
+        document.getElementById(tid)?.remove();
+        const m=document.createElement('div'); m.className='msg bot';
+        m.innerHTML=`<div class="msg-av">🤖</div><div><div class="msg-bubble">${html}</div><div class="msg-time">${ts()}</div></div>`;
+        body.appendChild(m); body.scrollTop=body.scrollHeight; res();
+      },td);
+    },delay);
   });
+}
+function user(html){
+  const body=document.getElementById('chat-body');
+  const m=document.createElement('div'); m.className='msg user';
+  m.innerHTML=`<div><div class="msg-bubble">${html}</div><div class="msg-time">${ts()}</div></div>`;
+  body.appendChild(m); body.scrollTop=body.scrollHeight;
+}
+function setQR(opts){
+  const area=document.getElementById('qr-area'); area.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button'); b.className='qr-chip'; b.textContent=o.label;
+    b.onclick=()=>{area.innerHTML=''; o.fn();};
+    area.appendChild(b);
+  });
+}
+function clearQR(){document.getElementById('qr-area').innerHTML='';}
+function showInput(ph='Type your answer…'){
+  const a=document.getElementById('chat-input-area'); a.style.display='block';
+  const i=document.getElementById('user-input'); i.placeholder=ph; i.value=''; i.focus();
+}
+function hideInput(){document.getElementById('chat-input-area').style.display='none';}
 
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+/* ── LEAD FORM ── */
+function showLeadForm(){
+  collecting=true; hideInput(); clearQR();
+  const body=document.getElementById('chat-body');
+  const f=document.createElement('div'); f.id='lead-form';
+  f.style.cssText='padding:6px 2px;display:flex;flex-direction:column;gap:7px;';
+  f.innerHTML=`
+    <div class="chat-fields">
+      <input type="text"  class="chat-field" id="f-biz"   placeholder="Business Name (e.g. Emeka Stores)"/>
+      <input type="text"  class="chat-field" id="f-type"  placeholder="Business Type (e.g. Pharmacy, Supermarket)"/>
+      <input type="text"  class="chat-field" id="f-loc"   placeholder="Location / City (e.g. Lagos)"/>
+      <input type="tel"   class="chat-field" id="f-phone" placeholder="WhatsApp Number (e.g. 08012345678)"/>
+      <button class="chat-submit" onclick="submitLead()">🚀 Activate My Business Account</button>
+      <p style="font-size:.7rem;color:var(--gray-400);text-align:center">Sent to our team via WhatsApp — account ready in 30 min</p>
+    </div>`;
+  body.appendChild(f); body.scrollTop=body.scrollHeight;
+}
 
-  cards.forEach(card => cardObserver.observe(card));
+function submitLead(){
+  const biz=document.getElementById('f-biz')?.value.trim();
+  const type=document.getElementById('f-type')?.value.trim();
+  const loc=document.getElementById('f-loc')?.value.trim();
+  const phone=document.getElementById('f-phone')?.value.trim();
+  if(!biz||!type||!loc||!phone){alert('Please fill in all fields to continue.');return;}
+  ud={biz,type,loc,phone};
+  document.getElementById('lead-form')?.remove();
+  user(`${biz} · ${type} · ${loc}`);
+  setTimeout(showConfirmation,600);
+}
+
+function showConfirmation(){
+  const waMsg=encodeURIComponent(`📥 NEW STOCKPILOT REQUEST\n\nThis is a high-intent customer.\n\nBusiness Name: ${ud.biz}\nBusiness Type: ${ud.type}\nLocation: ${ud.loc}\nPhone: ${ud.phone}\n\nAction: Activate 7-day trial + create account`);
+  const waLink=`https://wa.me/${WA}?text=${waMsg}`;
+  const body=document.getElementById('chat-body');
+  const wrap=document.createElement('div');
+  wrap.innerHTML=`
+    <div class="msg bot">
+      <div class="msg-av">🤖</div>
+      <div style="flex:1">
+        <div class="confirm-card">
+          <div class="confirm-icon">🎉</div>
+          <div class="confirm-title">Your request has been received!</div>
+          <div class="confirm-text">Our team is preparing your StockPilot account right now. You'll receive your login details via WhatsApp — usually <strong>within 30 minutes</strong>.</div>
+          <div class="confirm-eta">⏱ Expected: 5–30 minutes</div>
+          <a href="${waLink}" class="confirm-wa" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Open WhatsApp to complete request
+          </a>
+        </div>
+        <div class="msg-time">${ts()}</div>
+      </div>
+    </div>`;
+  body.appendChild(wrap); body.scrollTop=body.scrollHeight;
+  setTimeout(()=>window.open(waLink,'_blank'),1400);
+}
+
+/* ── CHAT FLOWS ── */
+async function startChat(){
+  if(step>0)return; step=1; hideInput();
+  await bot("👋 Hi! I'm the StockPilot assistant.",0);
+  await bot("I help business owners <strong>activate their free 7-day trial</strong>. Your account is usually ready within 30 minutes.",200);
+  setTimeout(()=>setQR([
+    {label:'🚀 Start My Free Trial', fn:flowTrial},
+    {label:'❓ I have questions',     fn:flowFAQ},
+    {label:'💰 See pricing',          fn:flowPrice},
+  ]),500);
+}
+
+async function flowTrial(){
+  user('🚀 Start My Free Trial');
+  await bot("Great choice! StockPilot is already helping businesses like yours reduce stock loss and track sales with ease.",200);
+  await bot("⚡ <strong>Free trial slots are limited daily.</strong> We activate accounts manually to ensure every business gets proper setup — not just a login link.",400);
+  await bot("Fill in the 4 fields below and your request goes straight to our team 👇",600);
+  setTimeout(showLeadForm,1300);
+}
+
+async function flowFAQ(){
+  user('❓ I have questions');
+  await bot("Of course! What would you like to know?",200);
+  setTimeout(()=>setQR([
+    {label:'⚙️ How does it work?',       fn:faqHow},
+    {label:'💊 Works for my pharmacy?',  fn:faqPharm},
+    {label:'📱 Phone or computer?',      fn:faqDevice},
+    {label:'🚀 Ready — let\'s go!',      fn:flowTrial},
+  ]),500);
+}
+
+async function faqHow(){
+  clearQR(); user('⚙️ How does it work?');
+  await bot("Simple 6-step process: <br>① Fill in your business details here<br>② Our team receives your request on WhatsApp<br>③ We manually set up your account (5–30 min)<br>④ You receive your login PIN via WhatsApp<br>⑤ Log in and start your 7-day free trial<br>⑥ Upgrade when you're ready — no pressure.",200);
+  setTimeout(()=>setQR([{label:'🚀 Start My Free Trial',fn:flowTrial},{label:'💰 See pricing',fn:flowPrice}]),600);
+}
+
+async function faqPharm(){
+  clearQR(); user('💊 Works for my pharmacy?');
+  await bot("100% yes. StockPilot is widely used by pharmacies. You can:<br>✓ Track medicines with expiry dates<br>✓ Record partial packs (half strips, half bottles)<br>✓ Set automatic low-stock alerts<br>✓ Manage customer records and credit",200);
+  setTimeout(()=>setQR([{label:'🚀 Start Free Trial',fn:flowTrial}]),600);
+}
+
+async function faqDevice(){
+  clearQR(); user('📱 Phone or computer?');
+  await bot("<strong>Both.</strong> StockPilot works on the mobile app and in your browser. Most users manage inventory from their phones — the interface is designed to be fast and simple on any screen size.",200);
+  setTimeout(()=>setQR([{label:'🚀 Start Free Trial',fn:flowTrial}]),600);
+}
+
+async function flowPrice(){
+  user('💰 See pricing');
+  await bot("StockPilot has two simple plans — <strong>both include a 7-day free trial</strong>:",200);
+  await bot("💎 <strong>Lifetime — ₦100,000</strong><br>Pay once, own it forever. Free updates for life.<br><br>📅 <strong>Monthly — ₦5,000/month</strong><br>Start affordable, scale as you grow.",400);
+  await bot("👉 The free trial gives you <strong>full access before paying anything</strong>. Zero risk.",600);
+  setTimeout(()=>setQR([{label:'🚀 Start Free Trial',fn:flowTrial},{label:'❓ More questions',fn:flowFAQ}]),900);
+}
+
+function sendMsg(){
+  if(collecting)return;
+  const inp=document.getElementById('user-input');
+  const txt=inp.value.trim(); if(!txt)return;
+  inp.value=''; user(txt);
+  bot("Thanks! The fastest way to get started is below 👇",300).then(()=>{
+    setTimeout(()=>setQR([{label:'🚀 Start My Free Trial',fn:flowTrial},{label:'❓ Ask a question',fn:flowFAQ}]),600);
+  });
+}
 </script>
 </body>
 </html>
